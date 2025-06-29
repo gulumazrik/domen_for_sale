@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продается домен</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .snowflake {
+            position: absolute;
+            border-radius: 50%;
+            background-color: white;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-gradient-to-b from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden flex items-center justify-center">
+        <!-- Snowflakes container -->
+        <div id="snowflakes-container"></div>
+
+        <!-- Central square with message -->
+        <div class="bg-white/90 backdrop-blur-sm p-12 rounded-lg shadow-2xl border border-white/20 text-center max-w-md mx-4">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6 leading-relaxed">
+                Продается домен
+            </h1>
+            <div class="text-lg text-gray-700 font-medium h-[38px]">
+                Писать 
+                <span class="text-blue-600 font-bold">
+                    @veyzov62 (telegram)
+                </span>
+            </div>
+        </div>
+
+        <!-- Additional atmospheric elements -->
+        <div class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/5 pointer-events-none"></div>
+    </div>
+
+    <script>
+        // Snowflake animation
+        let snowflakes = [];
+        const container = document.getElementById('snowflakes-container');
+
+        // Create initial snowflakes
+        function createSnowflakes() {
+            for (let i = 0; i < 50; i++) {
+                const snowflake = {
+                    id: i,
+                    x: Math.random() * 100,
+                    y: Math.random() * 100,
+                    size: Math.random() * 4 + 2,
+                    speed: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.8 + 0.2,
+                    element: null
+                };
+
+                // Create DOM element
+                const flakeElement = document.createElement('div');
+                flakeElement.className = 'snowflake';
+                flakeElement.style.left = `${snowflake.x}%`;
+                flakeElement.style.top = `${snowflake.y}%`;
+                flakeElement.style.width = `${snowflake.size}px`;
+                flakeElement.style.height = `${snowflake.size}px`;
+                flakeElement.style.opacity = snowflake.opacity;
+
+                container.appendChild(flakeElement);
+                snowflake.element = flakeElement;
+                snowflakes.push(snowflake);
+            }
+        }
+
+        // Animate snowflakes
+        function animateSnowflakes() {
+            snowflakes.forEach(flake => {
+                // Update position
+                flake.y = flake.y > 100 ? -5 : flake.y + flake.speed * 0.1;
+                flake.x = flake.x + Math.sin(flake.y * 0.01) * 0.1;
+
+                // Update DOM element
+                flake.element.style.left = `${flake.x}%`;
+                flake.element.style.top = `${flake.y}%`;
+            });
+        }
+
+        // Initialize
+        createSnowflakes();
+
+        // Start animation
+        setInterval(animateSnowflakes, 50);
+    </script>
+</body>
+</html>
